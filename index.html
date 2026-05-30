@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Rajeshwari Chinese & Biryani House</title>
-    <!-- Google Fonts for premium typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #5c0606;
@@ -16,524 +15,496 @@
             --text-muted: #aaaaaa;
             --non-veg: #e74c3c;
             --veg: #2ecc71;
+            --orange: #e67e22;
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--secondary); color: var(--text-light); padding-bottom: 90px; overflow-x: hidden; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', '-apple-system', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+        /* ANIMATIONS */
+        @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeInUp   { from{opacity:0;transform:translateY(30px)}  to{opacity:1;transform:translateY(0)} }
+        @keyframes pulse      { 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
+        @keyframes blink      { 0%,100%{opacity:1} 50%{opacity:.35} }
+        .reveal { opacity:0; transform:translateY(20px); transition:all 0.6s ease-out; }
+        .reveal.active { opacity:1; transform:translateY(0); }
 
-        body {
-            background-color: var(--secondary);
-            color: var(--text-light);
-            padding-bottom: 90px;
-            overflow-x: hidden;
-        }
+        /* HEADER */
+        header { background:linear-gradient(180deg,var(--primary) 0%,rgba(18,18,18,1) 100%); text-align:center; padding:35px 20px 25px; animation:fadeInDown .8s ease-out; }
+        .badge { background:var(--accent); color:#000; font-size:.75rem; font-weight:700; padding:3px 10px; border-radius:20px; display:inline-block; margin-bottom:8px; letter-spacing:1px; }
+        header h1 { font-size:2rem; color:var(--text-light); font-weight:700; letter-spacing:1px; font-family:'Noto Sans Devanagari',sans-serif; }
+        header p.tagline { font-size:1.1rem; color:var(--accent); margin-bottom:8px; font-weight:600; font-family:'Noto Sans Devanagari',sans-serif; }
+        header p.info { font-size:.85rem; color:var(--text-muted); line-height:1.5; max-width:320px; margin:0 auto; font-family:'Noto Sans Devanagari',sans-serif; }
 
-        /* --- Animations --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* STATUS PILL */
+        .status-pill { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); padding:5px 14px; border-radius:50px; font-size:.78rem; font-weight:700; margin-top:12px; font-family:'Noto Sans Devanagari',sans-serif; }
+        .sdot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+        .sdot.open { background:#4ADE80; box-shadow:0 0 8px rgba(74,222,128,.6); animation:blink 2s infinite; }
+        .sdot.closed { background:#F87171; }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* STICKY CONTROLS */
+        .sticky-controls { position:sticky; top:0; background:rgba(18,18,18,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:10px 15px; z-index:200; border-bottom:1px solid #2a2a2a; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+        .category-nav { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; width:65%; }
+        .category-nav::-webkit-scrollbar { display:none; }
+        .nav-chip { background:#2a2a2a; color:var(--text-muted); padding:6px 12px; border-radius:15px; font-size:.78rem; white-space:nowrap; text-decoration:none; font-weight:600; transition:all .25s; }
+        .nav-chip:active,.nav-chip.active { background:var(--primary); color:white; }
+        .lang-btn { background:linear-gradient(135deg,#f39c12,#f1c40f); color:#000; border:none; padding:8px 16px; font-size:.82rem; font-weight:700; border-radius:20px; cursor:pointer; box-shadow:0 4px 10px rgba(241,196,15,.3); transition:transform .2s; white-space:nowrap; flex-shrink:0; }
+        .lang-btn:active { transform:scale(.95); }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+        /* MENU SECTIONS */
+        .category-block { margin:25px 15px; scroll-margin-top:80px; }
+        .category-title { font-size:1.2rem; font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px; border-left:4px solid var(--accent); padding-left:10px; font-family:'Noto Sans Devanagari',sans-serif; }
+        .category-block.non-veg .category-title { border-left-color:var(--non-veg); }
+        .category-block.veg .category-title { border-left-color:var(--veg); }
+        .menu-list { background:var(--card-bg); border-radius:16px; padding:5px 15px; box-shadow:0 4px 20px rgba(0,0,0,.3); border:1px solid #2c2c2c; }
+        .menu-row { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid #2a2a2a; transition:background .2s; }
+        .menu-row:last-child { border-bottom:none; }
+        .item-name-block { flex:2; }
+        .item-title { font-weight:600; font-size:.95rem; color:var(--text-light); display:block; font-family:'Noto Sans Devanagari',sans-serif; }
+        .price-container { flex:1.2; display:flex; justify-content:space-between; font-weight:700; font-size:.92rem; }
+        .p-half { color:var(--orange); width:50%; }
+        .p-full { color:var(--accent); width:50%; text-align:right; }
+        .column-labels { display:flex; justify-content:space-between; font-size:.72rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; padding:0 0 8px; border-bottom:1px solid #2a2a2a; margin-bottom:4px; }
+        .lbl-item { flex:2; }
+        .lbl-prices { flex:1.2; display:flex; justify-content:space-between; }
+        .lbl-prices span { width:50%; text-align:right; }
+        .lbl-prices span:first-child { text-align:left; }
 
-        /* Smooth scroll appearance trigger class */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* FOOTER ACTION */
+        .footer-action { position:fixed; bottom:0; left:0; right:0; background:linear-gradient(180deg,rgba(18,18,18,0) 0%,rgba(18,18,18,1) 30%); padding:16px 15px; z-index:100; text-align:center; }
+        .call-btn { background:linear-gradient(135deg,#800000 0%,#b31010 100%); color:white; border:none; width:100%; padding:14px; border-radius:30px; font-size:1rem; font-weight:700; text-decoration:none; display:block; box-shadow:0 8px 25px rgba(128,0,0,.5); animation:pulse 2s infinite ease-in-out; border:1px solid rgba(255,255,255,.1); font-family:'Noto Sans Devanagari',sans-serif; }
 
-        /* --- Header Section --- */
-        header {
-            background: linear-gradient(180deg, var(--primary) 0%, rgba(18,18,18,1) 100%);
-            text-align: center;
-            padding: 35px 20px 25px 20px;
-            animation: fadeInDown 0.8s ease-out;
-        }
+        /* ══════════════════════════════════════
+           AI CHATBOT STYLES
+        ══════════════════════════════════════ */
+        .chat-fab { position:fixed; bottom:88px; right:18px; z-index:5000; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+        .chat-fab-btn { width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#b31010); border:2px solid rgba(241,196,15,.4); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:24px; box-shadow:0 6px 24px rgba(92,6,6,.6); transition:all .3s; position:relative; animation:chatPulse 3s ease-in-out infinite; }
+        @keyframes chatPulse { 0%,100%{box-shadow:0 6px 24px rgba(92,6,6,.6),0 0 0 0 rgba(241,196,15,.25)} 70%{box-shadow:0 6px 24px rgba(92,6,6,.6),0 0 0 12px rgba(241,196,15,0)} }
+        .chat-fab-btn:active { transform:scale(.92); }
+        .chat-fab-btn.is-open { background:linear-gradient(135deg,#333,#555); animation:none; border-color:rgba(255,255,255,.15); }
+        .chat-badge-dot { position:absolute; top:-3px; right:-3px; width:16px; height:16px; border-radius:50%; background:var(--accent); border:2px solid var(--secondary); font-size:8px; font-weight:900; color:#000; display:flex; align-items:center; justify-content:center; }
+        .chat-tooltip { background:var(--card-bg); color:var(--text-light); padding:7px 13px; border-radius:50px; font-size:12px; font-weight:700; border:1px solid rgba(241,196,15,.25); white-space:nowrap; font-family:'Noto Sans Devanagari',sans-serif; box-shadow:0 4px 14px rgba(0,0,0,.4); transition:opacity .4s; }
 
-        .badge {
-            background: var(--accent);
-            color: #000;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
+        /* CHAT WINDOW */
+        .chat-window { position:fixed; bottom:158px; right:14px; width:min(340px,calc(100vw - 28px)); height:min(500px,68svh); background:var(--secondary); border-radius:22px; box-shadow:0 20px 60px rgba(0,0,0,.6); z-index:4999; display:flex; flex-direction:column; overflow:hidden; border:1px solid #2c2c2c; transform-origin:bottom right; animation:chatWinOpen .35s cubic-bezier(.34,1.56,.64,1) both; }
+        @keyframes chatWinOpen { from{opacity:0;transform:scale(.65)} to{opacity:1;transform:scale(1)} }
+        .chat-window.closing { animation:chatWinClose .22s ease both; }
+        @keyframes chatWinClose { from{opacity:1;transform:scale(1)} to{opacity:0;transform:scale(.65)} }
 
-        header h1 {
-            font-size: 2rem;
-            color: var(--text-light);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        /* CHAT HEADER */
+        .chat-head { background:linear-gradient(135deg,var(--primary),#3d0000); padding:12px 14px; display:flex; align-items:center; gap:10px; flex-shrink:0; border-bottom:1px solid rgba(255,255,255,.07); }
+        .chat-head-avi { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#b31010,var(--accent)); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; border:2px solid rgba(241,196,15,.3); }
+        .chat-head-name { font-family:'Noto Sans Devanagari',sans-serif; font-size:13px; font-weight:900; color:#fff; }
+        .chat-head-status { font-size:10px; color:rgba(255,255,255,.5); display:flex; align-items:center; gap:4px; }
+        .chat-head-status::before { content:''; width:5px; height:5px; border-radius:50%; background:#4ADE80; }
+        .chat-close-btn { background:rgba(255,255,255,.1); border:none; width:28px; height:28px; border-radius:50%; color:rgba(255,255,255,.7); font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; margin-left:auto; transition:all .2s; }
+        .chat-close-btn:hover { background:rgba(255,255,255,.2); color:#fff; }
 
-        header p.tagline {
-            font-size: 1.1rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
+        /* MESSAGES */
+        .chat-msgs { flex:1; overflow-y:auto; padding:12px 10px; display:flex; flex-direction:column; gap:8px; scroll-behavior:smooth; background:#181818; }
+        .chat-msgs::-webkit-scrollbar { width:3px; }
+        .chat-msgs::-webkit-scrollbar-thumb { background:rgba(241,196,15,.2); border-radius:2px; }
+        .msg { display:flex; flex-direction:column; max-width:85%; animation:msgPop .3s cubic-bezier(.34,1.56,.64,1) both; }
+        @keyframes msgPop { from{opacity:0;transform:scale(.9) translateY(8px)} to{opacity:1;transform:none} }
+        .msg.bot { align-self:flex-start; }
+        .msg.user { align-self:flex-end; }
+        .msg-row { display:flex; align-items:flex-end; gap:6px; }
+        .msg.user .msg-row { flex-direction:row-reverse; }
+        .bot-avi { width:24px; height:24px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#e74c3c); display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+        .bubble { padding:9px 12px; border-radius:16px; font-size:12.5px; line-height:1.55; font-family:'Noto Sans Devanagari',sans-serif; }
+        .msg.bot .bubble { background:var(--card-bg); color:var(--text-light); border-bottom-left-radius:4px; border:1px solid #2c2c2c; }
+        .msg.user .bubble { background:linear-gradient(135deg,var(--primary),#b31010); color:#fff; border-bottom-right-radius:4px; }
+        .msg-time { font-size:9px; color:var(--text-muted); margin-top:3px; padding:0 3px; }
+        .msg.user .msg-time { text-align:right; }
 
-        header p.info {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            max-width: 320px;
-            margin: 0 auto;
-        }
+        /* QUICK REPLIES */
+        .qr-wrap { display:flex; flex-wrap:wrap; gap:5px; padding:3px 0 2px; }
+        .qr-btn { padding:5px 10px; border-radius:50px; border:1px solid rgba(241,196,15,.35); background:rgba(241,196,15,.06); color:var(--accent); font-size:11px; font-weight:700; font-family:'Noto Sans Devanagari',sans-serif; cursor:pointer; transition:all .2s; white-space:nowrap; }
+        .qr-btn:active { background:rgba(241,196,15,.2); transform:scale(.95); }
 
-        /* --- Floating Action Toggle Bar --- */
-        .sticky-controls {
-            position: sticky;
-            top: 0;
-            background: rgba(18, 18, 18, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 12px 15px;
-            z-index: 100;
-            border-bottom: 1px solid #2a2a2a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* TYPING */
+        .typing-wrap { display:flex; align-items:flex-end; gap:6px; }
+        .typing-dots { display:flex; gap:4px; padding:9px 14px; background:var(--card-bg); border-radius:16px; border-bottom-left-radius:4px; border:1px solid #2c2c2c; }
+        .typing-dots span { width:6px; height:6px; border-radius:50%; background:var(--text-muted); animation:typeDot 1.2s infinite ease-in-out; }
+        .typing-dots span:nth-child(2) { animation-delay:.2s; }
+        .typing-dots span:nth-child(3) { animation-delay:.4s; }
+        @keyframes typeDot { 0%,60%,100%{transform:translateY(0);opacity:.35} 30%{transform:translateY(-6px);opacity:1} }
 
-        .lang-btn {
-            background: linear-gradient(135deg, #f39c12, #f1c40f);
-            color: #000;
-            border: none;
-            padding: 8px 16px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(241,196,15,0.3);
-            transition: transform 0.2s;
-        }
-        .lang-btn:active { transform: scale(0.95); }
-
-        /* Smooth Carousel Navigation for Categories */
-        .category-nav {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-right: 10px;
-            width: 65%;
-        }
-        .category-nav::-webkit-scrollbar { display: none; }
-        
-        .nav-chip {
-            background: #2a2a2a;
-            color: var(--text-muted);
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .nav-chip:active { background: var(--primary); color: white; }
-
-        /* --- Menu Section Layout --- */
-        .category-block {
-            margin: 25px 15px;
-            scroll-margin-top: 80px;
-        }
-
-        .category-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border-left: 4px solid var(--accent);
-            padding-left: 10px;
-        }
-        .category-block.non-veg .category-title { border-left-color: var(--non-veg); }
-        .category-block.veg .category-title { border-left-color: var(--veg); }
-
-        .menu-list {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 5px 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            border: 1px solid #2c2c2c;
-        }
-
-        .menu-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid #2a2a2a;
-            transition: background 0.2s ease;
-        }
-        .menu-row:last-child { border-bottom: none; }
-
-        .item-name-block {
-            flex: 2;
-        }
-
-        .item-title {
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text-light);
-            display: block;
-        }
-
-        .price-container {
-            flex: 1.2;
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 0.95rem;
-            text-align: right;
-        }
-
-        .p-half { color: #e67e22; width: 50%; }
-        .p-full { color: var(--accent); width: 50%; }
-
-        /* Labels for Half/Full columns */
-        .column-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0 15px 8px 15px;
-            border-bottom: 1px solid #2a2a2a;
-            margin-bottom: 5px;
-        }
-        .lbl-item { flex: 2; }
-        .lbl-prices { flex: 1.2; display: flex; justify-content: space-between; text-align: right; }
-        .lbl-prices span { width: 50%; }
-
-        /* --- Modern Sticky Footer Call Button --- */
-        .footer-action {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(180deg, rgba(18,18,18,0) 0%, rgba(18,18,18,1) 30%);
-            padding: 20px 15px;
-            z-index: 100;
-            text-align: center;
-        }
-
-        .call-btn {
-            background: linear-gradient(135deg, #800000 0%, #b31010 100%);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 14px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: block;
-            box-shadow: 0 8px 25px rgba(128,0,0,0.5);
-            animation: pulse 2s infinite ease-in-out;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        /* CHAT INPUT */
+        .chat-input-row { padding:9px 10px; background:var(--secondary); border-top:1px solid #2a2a2a; display:flex; gap:7px; align-items:flex-end; flex-shrink:0; }
+        .chat-input { flex:1; background:var(--card-bg); border:1.5px solid #2c2c2c; border-radius:18px; padding:9px 13px; font-size:13px; font-family:'Noto Sans Devanagari',sans-serif; color:var(--text-light); outline:none; resize:none; max-height:72px; transition:border-color .2s; line-height:1.4; }
+        .chat-input:focus { border-color:rgba(241,196,15,.4); }
+        .chat-input::placeholder { color:var(--text-muted); }
+        .chat-send-btn { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--primary),#b31010); border:none; color:#fff; font-size:15px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .2s; }
+        .chat-send-btn:active { transform:scale(.88); }
+        .chat-send-btn:disabled { opacity:.35; cursor:not-allowed; }
     </style>
 </head>
 <body>
 
-    <!-- Header UI -->
-    <header>
-        <span class="badge">🔥 CUSTOMER FAVORITE</span>
-        <h1 data-mr="हॉटेल राजेश्वरी" data-en="Hotel Rajeshwari">हॉटेल राजेश्वरी</h1>
-        <p class="tagline" data-mr="चायनीज & बिर्याणी हाऊस" data-en="Chinese & Biryani House">चायनीज & बिर्याणी हाऊस</p>
-        <p class="info" data-mr="📍 युनियन बँक जवळ, मेन रोड, कोडोली, ता. पन्हाळा, जि. कोल्हापूर" data-en="📍 Near Union Bank, Main Road, Kodoli, Tal. Panhala, Dist. Kolhapur">📍 युनियन बँक जवळ, मेन रोड, कोडोली, ता. पन्हाळा, जि. कोल्हापूर</p>
-        <p class="info" style="margin-top: 6px; color: var(--accent); font-weight: bold;">📞 8421398971</p>
-    </header>
-
-    <!-- Quick controls row (Sticky top navigation) -->
-    <div class="sticky-controls">
-        <div class="category-nav">
-            <a href="#sec-biryani" class="nav-chip">Biryani</a>
-            <a href="#sec-nv-main" class="nav-chip">Non-Veg Main</a>
-            <a href="#sec-nv-starters" class="nav-chip">Non-Veg Starters</a>
-            <a href="#sec-v-main" class="nav-chip">Veg Main</a>
-            <a href="#sec-v-starters" class="nav-chip">Veg Starters</a>
-            <a href="#sec-soups" class="nav-chip">Soups</a>
-        </div>
-        <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">English</button>
+<!-- HEADER -->
+<header>
+    <span class="badge">🔥 CUSTOMER FAVORITE</span>
+    <h1 data-mr="हॉटेल राजेश्वरी" data-en="Hotel Rajeshwari">हॉटेल राजेश्वरी</h1>
+    <p class="tagline" data-mr="चायनीज & बिर्याणी हाऊस" data-en="Chinese & Biryani House">चायनीज & बिर्याणी हाऊस</p>
+    <p class="info" data-mr="📍 युनियन बँक जवळ, मेन रोड, कोडोली, ता. पन्हाळा, जि. कोल्हापूर" data-en="📍 Near Union Bank, Main Road, Kodoli, Tal. Panhala, Dist. Kolhapur">📍 युनियन बँक जवळ, मेन रोड, कोडोली, ता. पन्हाळा, जि. कोल्हापूर</p>
+    <p class="info" style="margin-top:6px;color:var(--accent);font-weight:bold;">📞 8421398971</p>
+    <div class="status-pill" id="statusPill">
+        <div class="sdot" id="statusDot"></div>
+        <span id="statusTxt" style="font-family:'Noto Sans Devanagari',sans-serif">तपासत आहे...</span>
     </div>
+</header>
 
-    <!-- 1. CHICKEN BIRYANI SECTION -->
-    <div class="category-block non-veg reveal" id="sec-biryani">
-        <div class="category-title" data-mr="🍗 चिकन बिर्याणी" data-en="🍗 Chicken Biryani">🍗 चिकन बिर्याणी</div>
-        <div class="menu-list">
-            <div class="column-labels">
-                <div class="lbl-item" data-mr="डिश नाम" data-en="Item Name">डिश नाम</div>
-                <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="स्पेशल चिकन बिर्याणी" data-en="Special Chicken Biryani">स्पेशल चिकन बिर्याणी</span></div>
-                <div class="price-container"><span class="p-half">₹80</span><span class="p-full">₹130</span></div>
-            </div>
-        </div>
+<!-- STICKY NAV -->
+<div class="sticky-controls">
+    <div class="category-nav">
+        <a href="#sec-biryani" class="nav-chip" data-mr="बिर्याणी" data-en="Biryani">बिर्याणी</a>
+        <a href="#sec-nv-main" class="nav-chip" data-mr="नॉनव्हेज मेन" data-en="Non-Veg Main">नॉनव्हेज मेन</a>
+        <a href="#sec-nv-starters" class="nav-chip" data-mr="नॉनव्हेज स्टार्टर" data-en="Non-Veg Starters">नॉनव्हेज स्टार्टर</a>
+        <a href="#sec-v-main" class="nav-chip" data-mr="व्हेज मेन" data-en="Veg Main">व्हेज मेन</a>
+        <a href="#sec-v-starters" class="nav-chip" data-mr="व्हेज स्टार्टर" data-en="Veg Starters">व्हेज स्टार्टर</a>
+        <a href="#sec-soups" class="nav-chip" data-mr="सूप" data-en="Soups">सूप</a>
     </div>
+    <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">English</button>
+</div>
 
-    <!-- 2. NON-VEG MAIN COURSE -->
-    <div class="category-block non-veg reveal" id="sec-nv-main">
-        <div class="category-title" data-mr="🍜 मेन कोर्स (नॉनव्हेज)" data-en="🍜 Non-Veg Main Course">🍜 मेन कोर्स (नॉनव्हेज)</div>
-        <div class="menu-list">
-            <div class="column-labels">
-                <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
-                <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१. चिकन फ्राईड राईस / नुडल्स" data-en="1. Chicken Fried Rice / Noodles">१. चिकन फ्राईड राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="२. चिकन शेजवान राईस / नुडल्स" data-en="2. Chicken Schezwan Rice / Noodles">२. चिकन शेजवान राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="३. चिकन ट्रिपल राईस / नुडल्स" data-en="3. Chicken Triple Rice / Noodles">३. चिकन ट्रिपल राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">90/-</span><span class="p-full">170/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="४. चिकन मंच्युरियन राईस / नुडल्स" data-en="4. Chicken Manchurian Rice / Noodles">४. चिकन मंच्युरियन राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">80/-</span><span class="p-full">150/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="५. चिकन थाउझंड राईस / नुडल्स" data-en="5. Chicken Thousand Rice / Noodles">५. चिकन थाउझंड राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">100/-</span><span class="p-full">180/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="६. चिकन हाँगकाँग राईस / नुडल्स" data-en="6. Chicken Hongkong Rice / Noodles">६. चिकन हाँगकाँग राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="७. चिकन गार्लिंग राईस / नुडल्स" data-en="7. Chicken Garlic Rice / Noodles">७. चिकन गार्लिंग राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="८. चिकन कमिशन राईस / नुडल्स" data-en="8. Chicken Commission Rice / Noodles">८. चिकन कमिशन राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="९. चिकन सिंगापूर राईस / नुडल्स" data-en="9. Chicken Singapore Rice / Noodles">९. चिकन सिंगापूर राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१०. चिकन पेकींग राईस" data-en="10. Chicken Peking Rice">१०. चिकन पेकींग राईस</span></div>
-                <div class="price-container"><span class="p-half">-</span><span class="p-full">120/-</span></div>
-            </div>
+<!-- BIRYANI -->
+<div class="category-block non-veg reveal" id="sec-biryani">
+    <div class="category-title" data-mr="🍗 चिकन बिर्याणी" data-en="🍗 Chicken Biryani">🍗 चिकन बिर्याणी</div>
+    <div class="menu-list">
+        <div class="column-labels">
+            <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
+            <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
+        </div>
+        <div class="menu-row">
+            <div class="item-name-block"><span class="item-title" data-mr="स्पेशल चिकन बिर्याणी" data-en="Special Chicken Biryani">स्पेशल चिकन बिर्याणी</span></div>
+            <div class="price-container"><span class="p-half">₹80</span><span class="p-full">₹130</span></div>
         </div>
     </div>
+</div>
 
-    <!-- 3. NON-VEG STARTERS -->
-    <div class="category-block non-veg reveal" id="sec-nv-starters">
-        <div class="category-title" data-mr="🔥 नॉनव्हेज स्टार्टर" data-en="🔥 Non-Veg Starters">🔥 नॉनव्हेज स्टार्टर</div>
-        <div class="menu-list">
-            <div class="column-labels">
-                <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
-                <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१. ऑल फ्राय लॉलीपॉप" data-en="1. Oil Fry Lollipop">१. ऑल फ्राय लॉलीपॉप</span></div>
-                <div class="price-container"><span class="p-half">90/-</span><span class="p-full">180/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="२. मसाला लॉलीपॉप" data-en="2. Masala Lollipop">२. मसाला लॉलीपॉप</span></div>
-                <div class="price-container"><span class="p-half">80/-</span><span class="p-full">150/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="३. चिकन मंच्युरियन" data-en="3. Chicken Manchurian">३. चिकन मंच्युरियन</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="४. चिकन चिल्ली" data-en="4. Chicken Chilli">४. चिकन चिल्ली</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="५. चिकन ६५" data-en="5. Chicken 65">५. चिकन ६५</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">100 Gm</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="६. चिकन ६५ मसाला" data-en="6. Chicken 65 Masala">६. चिकन ६५ मसाला</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">100 Gm</span></div>
-            </div>
+<!-- NON-VEG MAIN -->
+<div class="category-block non-veg reveal" id="sec-nv-main">
+    <div class="category-title" data-mr="🍜 मेन कोर्स (नॉनव्हेज)" data-en="🍜 Non-Veg Main Course">🍜 मेन कोर्स (नॉनव्हेज)</div>
+    <div class="menu-list">
+        <div class="column-labels">
+            <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
+            <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
         </div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१. चिकन फ्राईड राईस / नुडल्स" data-en="1. Chicken Fried Rice / Noodles">१. चिकन फ्राईड राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="२. चिकन शेजवान राईस / नुडल्स" data-en="2. Chicken Schezwan Rice / Noodles">२. चिकन शेजवान राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="३. चिकन ट्रिपल राईस / नुडल्स" data-en="3. Chicken Triple Rice / Noodles">३. चिकन ट्रिपल राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">90/-</span><span class="p-full">170/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="४. चिकन मंच्युरियन राईस / नुडल्स" data-en="4. Chicken Manchurian Rice / Noodles">४. चिकन मंच्युरियन राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">80/-</span><span class="p-full">150/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="५. चिकन थाउझंड राईस / नुडल्स" data-en="5. Chicken Thousand Rice / Noodles">५. चिकन थाउझंड राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">100/-</span><span class="p-full">180/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="६. चिकन हाँगकाँग राईस / नुडल्स" data-en="6. Chicken Hongkong Rice / Noodles">६. चिकन हाँगकाँग राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="७. चिकन गार्लिंग राईस / नुडल्स" data-en="7. Chicken Garlic Rice / Noodles">७. चिकन गार्लिंग राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="८. चिकन कमिशन राईस / नुडल्स" data-en="8. Chicken Commission Rice / Noodles">८. चिकन कमिशन राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="९. चिकन सिंगापूर राईस / नुडल्स" data-en="9. Chicken Singapore Rice / Noodles">९. चिकन सिंगापूर राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१०. चिकन पेकींग राईस" data-en="10. Chicken Peking Rice">१०. चिकन पेकींग राईस</span></div><div class="price-container"><span class="p-half">-</span><span class="p-full">120/-</span></div></div>
     </div>
+</div>
 
-    <!-- 4. VEG MAIN COURSE -->
-    <div class="category-block veg reveal" id="sec-v-main">
-        <div class="category-title" data-mr="🟢 मेन कोर्स (व्हेज)" data-en="🟢 Veg Main Course">🟢 मेन कोर्स (व्हेज)</div>
-        <div class="menu-list">
-            <div class="column-labels">
-                <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
-                <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१. व्हेज फ्राईड राईस / नुडल्स" data-en="1. Veg Fried Rice / Noodles">१. व्हेज फ्राईड राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="२. व्हेज शेजवान राईस / नुडल्स" data-en="2. Veg Schezwan Rice / Noodles">२. व्हेज शेजवान राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="३. व्हेज ट्रिपल राईस / नुडल्स" data-en="3. Veg Triple Rice / Noodles">३. व्हेज ट्रिपल राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">90/-</span><span class="p-full">170/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="४. व्हेज मंच्युरियन राईस / नुडल्स" data-en="4. Veg Manchurian Rice / Noodles">४. व्हेज मंच्युरियन राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">90/-</span><span class="p-full">170/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="५. व्हेज थाउझंड राईस / नुडल्स" data-en="5. Veg Thousand Rice / Noodles">५. व्हेज थाउझंड राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">100/-</span><span class="p-full">180/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="६. व्हेज हाँगकाँग राईस / नुडल्स" data-en="6. Veg Hongkong Rice / Noodles">६. व्हेज हाँगकाँग राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">80/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="७. व्हेज गार्लिंग राईस / नुडल्स" data-en="7. Veg Garlic Rice / Noodles">७. व्हेज गार्लिंग राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="८. व्हेज कमिशन राईस / नुडल्स" data-en="8. Veg Commission Rice / Noodles">८. व्हेज कमिशन राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="९. व्हेज सिंगापूर राईस / नुडल्स" data-en="9. Veg Singapore Rice / Noodles">९. व्हेज सिंगापूर राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१०. व्हेज पेकींग राईस / नुडल्स" data-en="10. Veg Peking Rice / Noodles">१०. व्हेज पेकींग राईस / नुडल्स</span></div>
-                <div class="price-container"><span class="p-half">-</span><span class="p-full">120/-</span></div>
-            </div>
+<!-- NON-VEG STARTERS -->
+<div class="category-block non-veg reveal" id="sec-nv-starters">
+    <div class="category-title" data-mr="🔥 नॉनव्हेज स्टार्टर" data-en="🔥 Non-Veg Starters">🔥 नॉनव्हेज स्टार्टर</div>
+    <div class="menu-list">
+        <div class="column-labels">
+            <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
+            <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
         </div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१. ऑल फ्राय लॉलीपॉप" data-en="1. Oil Fry Lollipop">१. ऑल फ्राय लॉलीपॉप</span></div><div class="price-container"><span class="p-half">90/-</span><span class="p-full">180/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="२. मसाला लॉलीपॉप" data-en="2. Masala Lollipop">२. मसाला लॉलीपॉप</span></div><div class="price-container"><span class="p-half">80/-</span><span class="p-full">150/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="३. चिकन मंच्युरियन" data-en="3. Chicken Manchurian">३. चिकन मंच्युरियन</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="४. चिकन चिल्ली" data-en="4. Chicken Chilli">४. चिकन चिल्ली</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="५. चिकन ६५" data-en="5. Chicken 65">५. चिकन ६५</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">100 Gm</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="६. चिकन ६५ मसाला" data-en="6. Chicken 65 Masala">६. चिकन ६५ मसाला</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">100 Gm</span></div></div>
     </div>
+</div>
 
-    <!-- 5. VEG STARTERS -->
-    <div class="category-block veg reveal" id="sec-v-starters">
-        <div class="category-title" data-mr="🥦 व्हेज स्टार्टर" data-en="🥦 Veg Starters">🥦 व्हेज स्टार्टर</div>
-        <div class="menu-list">
-            <div class="column-labels">
-                <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
-                <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१. व्हेज मंच्युरियन" data-en="1. Veg Manchurian">१. व्हेज मंच्युरियन</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">100/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="२. व्हेज शेजवान मंच्युरियन" data-en="2. Veg Schezwan Manchurian">२. व्हेज शेजवान मंच्युरियन</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">110/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="३. व्हेज भेल" data-en="3. Veg Bhel">३. व्हेज भेल</span></div>
-                <div class="price-container"><span class="p-half">60/-</span><span class="p-full">110/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="४. अमेरिकन चॉप्सो" data-en="4. American Chopsy">४. अमेरिकन चॉप्सो</span></div>
-                <div class="price-container"><span class="p-half">80/-</span><span class="p-full">150/-</span></div>
-            </div>
+<!-- VEG MAIN -->
+<div class="category-block veg reveal" id="sec-v-main">
+    <div class="category-title" data-mr="🟢 मेन कोर्स (व्हेज)" data-en="🟢 Veg Main Course">🟢 मेन कोर्स (व्हेज)</div>
+    <div class="menu-list">
+        <div class="column-labels">
+            <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
+            <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
         </div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१. व्हेज फ्राईड राईस / नुडल्स" data-en="1. Veg Fried Rice / Noodles">१. व्हेज फ्राईड राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="२. व्हेज शेजवान राईस / नुडल्स" data-en="2. Veg Schezwan Rice / Noodles">२. व्हेज शेजवान राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="३. व्हेज ट्रिपल राईस / नुडल्स" data-en="3. Veg Triple Rice / Noodles">३. व्हेज ट्रिपल राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">90/-</span><span class="p-full">170/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="४. व्हेज मंच्युरियन राईस / नुडल्स" data-en="4. Veg Manchurian Rice / Noodles">४. व्हेज मंच्युरियन राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">90/-</span><span class="p-full">170/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="५. व्हेज थाउझंड राईस / नुडल्स" data-en="5. Veg Thousand Rice / Noodles">५. व्हेज थाउझंड राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">100/-</span><span class="p-full">180/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="६. व्हेज हाँगकाँग राईस / नुडल्स" data-en="6. Veg Hongkong Rice / Noodles">६. व्हेज हाँगकाँग राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">80/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="७. व्हेज गार्लिंग राईस / नुडल्स" data-en="7. Veg Garlic Rice / Noodles">७. व्हेज गार्लिंग राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="८. व्हेज कमिशन राईस / नुडल्स" data-en="8. Veg Commission Rice / Noodles">८. व्हेज कमिशन राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="९. व्हेज सिंगापूर राईस / नुडल्स" data-en="9. Veg Singapore Rice / Noodles">९. व्हेज सिंगापूर राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">70/-</span><span class="p-full">120/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१०. व्हेज पेकींग राईस / नुडल्स" data-en="10. Veg Peking Rice / Noodles">१०. व्हेज पेकींग राईस / नुडल्स</span></div><div class="price-container"><span class="p-half">-</span><span class="p-full">120/-</span></div></div>
     </div>
+</div>
 
-    <!-- 6. SOUPS SECTION -->
-    <div class="category-block reveal" id="sec-soups">
-        <div class="category-title" style="color: #bdc3c7;" data-mr="🥣 सुप" data-en="🥣 Soups">🥣 सुप</div>
-        <div class="menu-list">
-            <div class="column-labels">
-                <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
-                <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="१. व्हेज / नॉनव्हेज मंच्याव सुप" data-en="1. Veg / Non-Veg Manchow Soup">१. व्हेज / नॉनव्हेज मंच्याव सुप</span></div>
-                <div class="price-container"><span class="p-half">40/-</span><span class="p-full">60/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="२. व्हेज / नॉनव्हेज मंच्युरियन सुप" data-en="2. Veg / Non-Veg Manchurian Soup">२. व्हेज / नॉनव्हेज मंच्युरियन सुप</span></div>
-                <div class="price-container"><span class="p-half">40/-</span><span class="p-full">60/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="३. व्हेज / नॉनव्हेज क्लिअर सुप" data-en="3. Veg / Non-Veg Clear Soup">३. व्हेज / नॉनव्हेज क्लिअर सुप</span></div>
-                <div class="price-container"><span class="p-half">50/-</span><span class="p-full">70/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="४. व्हेज / नॉनव्हेज टोमॅटो सुप" data-en="4. Veg / Non-Veg Tomato Soup">४. व्हेज / नॉनव्हेज टोमॅटो सुप</span></div>
-                <div class="price-container"><span class="p-half">50/-</span><span class="p-full">70/-</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="item-name-block"><span class="item-title" data-mr="५. व्हेज / नॉनव्हेज गार्लिक सुप" data-en="5. Veg / Non-Veg Garlic Soup">५. व्हेज / नॉनव्हेज गार्लिक सुप</span></div>
-                <div class="price-container"><span class="p-half">40/-</span><span class="p-full">60/-</span></div>
-            </div>
+<!-- VEG STARTERS -->
+<div class="category-block veg reveal" id="sec-v-starters">
+    <div class="category-title" data-mr="🥦 व्हेज स्टार्टर" data-en="🥦 Veg Starters">🥦 व्हेज स्टार्टर</div>
+    <div class="menu-list">
+        <div class="column-labels">
+            <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
+            <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
         </div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१. व्हेज मंच्युरियन" data-en="1. Veg Manchurian">१. व्हेज मंच्युरियन</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">100/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="२. व्हेज शेजवान मंच्युरियन" data-en="2. Veg Schezwan Manchurian">२. व्हेज शेजवान मंच्युरियन</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">110/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="३. व्हेज भेल" data-en="3. Veg Bhel">३. व्हेज भेल</span></div><div class="price-container"><span class="p-half">60/-</span><span class="p-full">110/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="४. अमेरिकन चॉप्सो" data-en="4. American Chopsy">४. अमेरिकन चॉप्सो</span></div><div class="price-container"><span class="p-half">80/-</span><span class="p-full">150/-</span></div></div>
     </div>
+</div>
 
-    <!-- Floating Order Action -->
-    <div class="footer-action">
-        <a href="tel:8421398971" class="call-btn">📞 ऑर्डर देण्यासाठी कॉल करा (Call Order)</a>
+<!-- SOUPS -->
+<div class="category-block reveal" id="sec-soups">
+    <div class="category-title" style="border-left-color:#bdc3c7" data-mr="🥣 सूप" data-en="🥣 Soups">🥣 सूप</div>
+    <div class="menu-list">
+        <div class="column-labels">
+            <div class="lbl-item" data-mr="डिश" data-en="Item">डिश</div>
+            <div class="lbl-prices"><span data-mr="हाफ" data-en="Half">हाफ</span><span data-mr="फुल" data-en="Full">फुल</span></div>
+        </div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="१. व्हेज / नॉनव्हेज मंच्याव सूप" data-en="1. Veg / Non-Veg Manchow Soup">१. व्हेज / नॉनव्हेज मंच्याव सूप</span></div><div class="price-container"><span class="p-half">40/-</span><span class="p-full">60/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="२. व्हेज / नॉनव्हेज मंच्युरियन सूप" data-en="2. Veg / Non-Veg Manchurian Soup">२. व्हेज / नॉनव्हेज मंच्युरियन सूप</span></div><div class="price-container"><span class="p-half">40/-</span><span class="p-full">60/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="३. व्हेज / नॉनव्हेज क्लिअर सूप" data-en="3. Veg / Non-Veg Clear Soup">३. व्हेज / नॉनव्हेज क्लिअर सूप</span></div><div class="price-container"><span class="p-half">50/-</span><span class="p-full">70/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="४. व्हेज / नॉनव्हेज टोमॅटो सूप" data-en="4. Veg / Non-Veg Tomato Soup">४. व्हेज / नॉनव्हेज टोमॅटो सूप</span></div><div class="price-container"><span class="p-half">50/-</span><span class="p-full">70/-</span></div></div>
+        <div class="menu-row"><div class="item-name-block"><span class="item-title" data-mr="५. व्हेज / नॉनव्हेज गार्लिक सूप" data-en="5. Veg / Non-Veg Garlic Soup">५. व्हेज / नॉनव्हेज गार्लिक सूप</span></div><div class="price-container"><span class="p-half">40/-</span><span class="p-full">60/-</span></div></div>
     </div>
+</div>
 
-    <!-- JS for Animation triggers & Translation Logic -->
-    <script>
-        // Smooth scroll reveal logic
-        function revealElements() {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach(windowEl => {
-                const windowHeight = window.innerHeight;
-                const elementTop = windowEl.getBoundingClientRect().top;
-                const elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    windowEl.classList.add('active');
-                }
-            });
-        }
-        window.addEventListener('scroll', revealElements);
-        window.addEventListener('load', revealElements); // Trigger first few on open
+<!-- FOOTER CALL BUTTON -->
+<div class="footer-action">
+    <a href="tel:8421398971" class="call-btn" data-mr="📞 ऑर्डर देण्यासाठी कॉल करा" data-en="📞 Call to Place Order">📞 ऑर्डर देण्यासाठी कॉल करा</a>
+</div>
 
-        // Multi-Language Switch Script
-        let currentLang = 'mr'; 
-        function toggleLanguage() {
-            const translatableElements = document.querySelectorAll('[data-mr]');
-            const button = document.getElementById('langToggle');
-            
-            if (currentLang === 'mr') {
-                translatableElements.forEach(el => { el.textContent = el.getAttribute('data-en'); });
-                button.textContent = "मराठी";
-                currentLang = 'en';
-            } else {
-                translatableElements.forEach(el => { el.textContent = el.getAttribute('data-mr'); });
-                button.textContent = "English";
-                currentLang = 'mr';
-            }
-        }
-    </script>
+<!-- ═══════════════════════ AI CHATBOT ═══════════════════════ -->
+<!-- FAB Button -->
+<div class="chat-fab" id="chatFab">
+    <div class="chat-tooltip" id="chatTooltip">🍛 काय हवे आहे?</div>
+    <button class="chat-fab-btn" id="chatFabBtn" onclick="toggleChat()">
+        🤖
+        <div class="chat-badge-dot">AI</div>
+    </button>
+</div>
+
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow" style="display:none">
+    <div class="chat-head">
+        <div class="chat-head-avi">🍛</div>
+        <div>
+            <div class="chat-head-name">राजेश्वरी AI · Rajeshwari AI</div>
+            <div class="chat-head-status">ऑनलाइन · Online</div>
+        </div>
+        <button class="chat-close-btn" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-msgs" id="chatMsgs"></div>
+    <div class="chat-input-row">
+        <textarea class="chat-input" id="chatInput" placeholder="विचारा... Ask anything 🍛" rows="1" onkeydown="handleKey(event)" oninput="autoGrow(this)"></textarea>
+        <button class="chat-send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
+    </div>
+</div>
+
+<script>
+// ══════════════ SCROLL REVEAL ══════════════
+function revealEls(){
+    document.querySelectorAll('.reveal').forEach(el=>{
+        if(el.getBoundingClientRect().top < window.innerHeight-80) el.classList.add('active');
+    });
+}
+window.addEventListener('scroll',revealEls);
+window.addEventListener('load',revealEls);
+
+// ══════════════ LANGUAGE TOGGLE ══════════════
+let lang='mr';
+function toggleLanguage(){
+    const btn=document.getElementById('langToggle');
+    lang = lang==='mr'?'en':'mr';
+    document.querySelectorAll('[data-mr]').forEach(el=>{ el.textContent=el.getAttribute('data-'+lang); });
+    btn.textContent = lang==='mr'?'English':'मराठी';
+}
+
+// ══════════════ OPENING HOURS STATUS ══════════════
+(function(){
+    const now=new Date(), h=now.getHours(), m=now.getMinutes(), day=now.getDay();
+    const cur=h*60+m, closeMin=day===6?1410:1380;
+    const isOpen=cur>=660&&cur<closeMin;
+    const dot=document.getElementById('statusDot');
+    const txt=document.getElementById('statusTxt');
+    if(isOpen){ dot.className='sdot open'; txt.textContent='आत्ता उघडे आहोत ✓ Open Now'; }
+    else { dot.className='sdot closed'; txt.textContent='आत्ता बंद · Opens 11 AM'; }
+})();
+
+// ══════════════ CHATBOT ══════════════
+let chatOpen=false, history=[], tooltipTimer;
+tooltipTimer=setTimeout(()=>{
+    const t=document.getElementById('chatTooltip');
+    if(t){t.style.opacity='0';t.style.transition='opacity .5s';setTimeout(()=>t.style.display='none',500);}
+},5000);
+
+function toggleChat(){
+    chatOpen=!chatOpen;
+    const win=document.getElementById('chatWindow');
+    const btn=document.getElementById('chatFabBtn');
+    const tip=document.getElementById('chatTooltip');
+    if(chatOpen){
+        win.style.display='flex';win.style.flexDirection='column';
+        win.classList.remove('closing');
+        btn.classList.add('is-open');btn.textContent='✕';
+        if(tip)tip.style.display='none';
+        if(history.length===0) initChat();
+        setTimeout(()=>document.getElementById('chatInput').focus(),350);
+    } else {
+        win.classList.add('closing');
+        btn.classList.remove('is-open');
+        btn.innerHTML='🤖<div class="chat-badge-dot">AI</div>';
+        setTimeout(()=>win.style.display='none',220);
+    }
+}
+
+function initChat(){
+    const now=new Date(), h=now.getHours();
+    const greet = h<12?'सुप्रभात 🌅':h<17?'नमस्कार 👋':'शुभ संध्याकाळ 🌆';
+    botMsg(`${greet}! मी राजेश्वरी AI आहे 🍛\n\nमेनू, किंमत, वेळ, ऑर्डर — सगळ्याबद्दल विचारा!\n\n*Hello! I'm Rajeshwari's AI. Ask me about menu, prices, timings or how to order!*`, true);
+}
+
+const QR = [
+    {l:'🍛 बिर्याणी किंमत',q:'biryani price'},
+    {l:'🍜 चायनीज मेनू',q:'chinese menu'},
+    {l:'🕐 वेळ काय?',q:'timing'},
+    {l:'📍 पत्ता',q:'address'},
+    {l:'🥦 व्हेज काय?',q:'veg items'},
+    {l:'💰 स्वस्त पदार्थ',q:'cheapest'},
+    {l:'🌶️ तिखट',q:'spicy'},
+    {l:'📞 ऑर्डर कसे?',q:'how to order'},
+];
+
+function botMsg(text, withQR=false){
+    const msgs=document.getElementById('chatMsgs');
+    const time=new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'});
+    const qrHTML=withQR?`<div class="qr-wrap">${QR.map(r=>`<button class="qr-btn" onclick="quickReply('${r.q}','${r.l}')">${r.l}</button>`).join('')}</div>`:'';
+    const d=document.createElement('div');
+    d.className='msg bot';
+    d.innerHTML=`<div class="msg-row"><div class="bot-avi">🍛</div><div><div class="bubble">${text.replace(/\n/g,'<br>').replace(/\*(.*?)\*/g,'<em style="opacity:.65;font-style:italic">$1</em>')}</div>${qrHTML}<div class="msg-time">${time}</div></div></div>`;
+    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+    history.push({role:'assistant',content:text});
+}
+
+function userMsg(text){
+    const msgs=document.getElementById('chatMsgs');
+    const time=new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'});
+    const d=document.createElement('div');
+    d.className='msg user';
+    d.innerHTML=`<div class="msg-row"><div><div class="bubble">${text}</div><div class="msg-time">${time}</div></div></div>`;
+    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+    history.push({role:'user',content:text});
+}
+
+function showTyping(){
+    const msgs=document.getElementById('chatMsgs');
+    const d=document.createElement('div');
+    d.className='msg bot';d.id='typingMsg';
+    d.innerHTML=`<div class="typing-wrap"><div class="bot-avi">🍛</div><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+    msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('typingMsg');if(t)t.remove();}
+
+function quickReply(q,label){userMsg(label);process(q);}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function autoGrow(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,72)+'px';}
+
+function sendMsg(){
+    const inp=document.getElementById('chatInput');
+    const t=inp.value.trim(); if(!t)return;
+    inp.value='';inp.style.height='auto';
+    userMsg(t); process(t.toLowerCase());
+}
+
+async function process(q){
+    showTyping();
+    const local=getLocal(q);
+    if(local){ await delay(600+Math.random()*400); hideTyping(); botMsg(local); return; }
+    try{
+        const sys=`You are a friendly AI assistant for Hotel Rajeshwari, a Chinese & Biryani restaurant in Kodoli, Maharashtra. Speak Marathi + English mixed. Be short and helpful (2-4 sentences). Use emojis naturally.
+
+MENU & PRICES:
+Chicken Biryani: Half ₹80 / Full ₹130
+Chicken Main (Rice/Noodles) - Fried:60/120, Schezwan:60/120, Triple:90/170, Manchurian:80/150, Thousand:100/180, HongKong:70/120, Garlic:70/120, Commission:60/120, Singapore:70/120, Peking:-/120
+Non-Veg Starters - Lollipop AllFry:90/180, Masala:80/150, Manchurian:70/120, Chilli:70/120, Chicken65:60/100gm, Chicken65Masala:60/100gm
+Veg Main (Rice/Noodles) - Fried:60/120, Schezwan:60/120, Triple:90/170, Manchurian:90/170, Thousand:100/180, HongKong:80/120, Garlic:70/120, Commission:60/120, Singapore:70/120, Peking:-/120
+Veg Starters - Manchurian:60/100, SchezwanManchurian:60/110, Bhel:60/110, AmericanChopsy:80/150
+Soups (Veg/NV) - Manchow:40/60, Manchurian:40/60, Clear:50/70, Tomato:50/70, Garlic:40/60
+Hours: Mon-Sun 11AM-11PM (Sat till 11:30PM)
+Location: Near Union Bank, Main Road, Kodoli, Kolhapur
+Phone: 8421398971 | Owner: Prem Bhosle
+Order: WhatsApp wa.me/918421398971 or call 8421398971`;
+
+        const resp=await fetch('https://api.anthropic.com/v1/messages',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({
+                model:'claude-sonnet-4-20250514',
+                max_tokens:1000,
+                system:sys,
+                messages:history.filter(m=>m.role==='user'||m.role==='assistant').slice(-8)
+            })
+        });
+        const data=await resp.json();
+        hideTyping();
+        botMsg(data.content?.[0]?.text||'माफ करा, पुन्हा विचारा. 📞 8421398971');
+    } catch(e){
+        hideTyping();
+        botMsg('माफ करा! Network समस्या. कृपया कॉल करा: 📞 8421398971');
+    }
+}
+
+function getLocal(q){
+    const now=new Date(),h=now.getHours(),m=now.getMinutes(),day=now.getDay();
+    const cur=h*60+m, isOpen=cur>=660&&cur<(day===6?1410:1380);
+
+    if(/biryani|बिर्याणी|biryan/.test(q))
+        return `🍛 चिकन बिर्याणी — आमची स्पेशल!\n\nहाफ: ₹80 · पूर्ण: ₹130\n\nदम पद्धतीने शिजवलेली, खूप चविष्ट! ऑर्डरसाठी 📞 8421398971`;
+
+    if(/price|किंमत|rate|cost|charges/.test(q))
+        return `💰 किंमती:\n🍛 बिर्याणी: ₹80/₹130\n🍜 मेन कोर्स: ₹60–₹180\n🍗 स्टार्टर: ₹60–₹180\n🍵 सूप: ₹40–₹70\n\nवर scroll करून पूर्ण मेनू पाहा!`;
+
+    if(/timing|time|वेळ|hour|open|उघड|बंद/.test(q))
+        return `🕐 वेळ:\nसोम–शुक्र & रवि: 11 AM – 11 PM\nशनिवार: 11 AM – 11:30 PM\n\n${isOpen?'✅ आत्ता उघडे आहोत!':'❌ आत्ता बंद. सकाळी 11 ला उघडतो.'}`;
+
+    if(/address|पत्ता|location|where|कुठे|ठिकाण/.test(q))
+        return `📍 युनियन बँक जवळ, मेन रोड, कोडोली\nता. पन्हाळा, जि. कोल्हापूर\n\n(Near Union Bank, Main Road, Kodoli, Kolhapur)`;
+
+    if(/phone|number|call|contact|फोन|नंबर/.test(q))
+        return `📞 8421398971\n\nWhatsApp: wa.me/918421398971\nमालक: प्रेम भोसले 👨‍🍳`;
+
+    if(/veg|व्हेज|vegetarian|शाकाहारी/.test(q))
+        return `🥦 व्हेज पदार्थ:\nमेन कोर्स: फ्राईड, शेजवान, ट्रिपल, मंच्युरियन + more (₹60–₹180)\nस्टार्टर: मंच्युरियन, शेजवान मंच्युरियन, भेळ, चॉप्सी (₹60–₹150)\nसूप: ₹40–₹70 🍵`;
+
+    if(/cheap|स्वस्त|budget|affordable|cheapest|कमी/.test(q))
+        return `💸 स्वस्त पदार्थ:\n🍵 सूप हाफ: ₹40 पासून\n🍜 व्हेज/चिकन फ्राईड हाफ: ₹60\n🍛 बिर्याणी हाफ: ₹80\n\nहाफ portion मध्ये भरपूर मिळते! 😋`;
+
+    if(/spicy|तिखट|schezwan|chilli|hot/.test(q))
+        return `🌶️ तिखट पदार्थ:\n• शेजवान राईस/नुडल्स: ₹60/₹120\n• चिकन चिल्ली: ₹70/₹120\n• चिकन ६५ मसाला: ₹60\n• व्हेज शेजवान मंच्युरियन: ₹60/₹110\n\nशेजवान नक्की try करा! 🔥`;
+
+    if(/order|ऑर्डर|how|कसे/.test(q))
+        return `📦 ऑर्डर कसे करावे?\n\n1️⃣ खालील बटण दाबा: 📞 कॉल करा\n2️⃣ WhatsApp: wa.me/918421398971\n3️⃣ थेट हॉटेलवर या!\n\nConfirm झाल्यावर मालक कळवतील ✅`;
+
+    if(/starter|lollipop|लॉलीपॉप/.test(q))
+        return `🍗 नॉनव्हेज स्टार्टर:\n• ऑल फ्राय लॉलीपॉप: ₹90/₹180 🔥\n• मसाला लॉलीपॉप: ₹80/₹150\n• चिकन मंच्युरियन: ₹70/₹120\n• चिकन चिल्ली: ₹70/₹120\n• चिकन ६५: ₹60/100gm\n\nलॉलीपॉप आमची स्पेशल! 😋`;
+
+    if(/soup|सूप/.test(q))
+        return `🍵 सूप (व्हेज/नॉनव्हेज):\n• मंचाव: ₹40/₹60\n• मंच्युरियन: ₹40/₹60\n• क्लिअर: ₹50/₹70\n• टोमॅटो: ₹50/₹70\n• गार्लिक: ₹40/₹60`;
+
+    if(/नमस्कार|hello|hi |hey/.test(q))
+        return `नमस्कार! 🙏 हॉटेल राजेश्वरीमध्ये स्वागत आहे!\n\nमेनू, किंमत, वेळ — काहीही विचारा 😊\n\n*Hello! Welcome to Hotel Rajeshwari. How can I help?*`;
+
+    if(/thank|धन्यवाद/.test(q))
+        return `धन्यवाद! 🙏 नक्की या आमच्या हॉटेलमध्ये!\n📞 8421398971 · कोडोली`;
+
+    return null;
+}
+
+function delay(ms){return new Promise(r=>setTimeout(r,ms));}
+</script>
+
 </body>
 </html>
